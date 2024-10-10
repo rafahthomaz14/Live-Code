@@ -1,0 +1,21 @@
+# Tutorial: Criando uma To-Do List com jQuery, Bootstrap e Local Storage
+
+Neste tutorial, vamos construir uma To-Do List simples usando jQuery, Bootstrap e Local Storage. Você poderá adicionar, editar e remover tarefas, e as tarefas serão armazenadas no Local Storage para persistência.
+
+## Pré-requisitos
+
+- Conhecimento básico de HTML, CSS e JavaScript.
+- Um editor de código (como Visual Studio Code).
+- Um navegador (Chrome, Firefox, etc.).
+
+## Passo 1: Estrutura do Projeto
+
+Crie uma nova pasta para o seu projeto e dentro dela, crie os seguintes arquivos:
+
+- `index.html`
+- `script.js`
+
+## Passo 2: Configuração do HTML
+
+
+
