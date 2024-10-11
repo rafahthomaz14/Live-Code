@@ -12,7 +12,7 @@ section {
     border-radius: 10px; /* Arredonda os cantos da seção em 10px */
     padding: 15px; /* Aplica 15px de preenchimento interno em todos os lados da seção */
     width: 500px; /* Define a largura da seção em 500px */
-    box-shadow: 5px 5px 13px rgb(255, 255, 255); /* Adiciona uma sombra */
+    box-shadow: 5px 5px 12px rgb(7, 143, 255); /* Adiciona uma sombra */
     height: 500px; /* Define a altura da seção como 500px */
     overflow: hidden; /* Impede que o conteúdo que exceder a altura definida apareça (oculta o excesso) */
 }
@@ -27,4 +27,11 @@ h1 {
     max-height: 200px; /* Define a altura máxima da lista */
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical automaticamente quando o conteúdo exceder a altura máxima */
     padding-right: 10px; /* Adiciona um preenchimento à direita para que o conteúdo não fique encoberto pela barra de rolagem */
+}
+/* Ajuste para telas pequenas */
+@media (max-width: 600px) {
+    section {
+        width: 90%; /* Largura proporcional à tela */
+        padding: 20px; /* Aumenta o padding para telas menores */
+    }
 }
