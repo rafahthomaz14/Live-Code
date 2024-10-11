@@ -34,9 +34,14 @@ class TaskManager {
 
     // Método para remover uma tarefa pelo ID.
     removeTask(taskId) {
-        // Filtra as tarefas, mantendo apenas as que não correspondem ao ID da tarefa a ser removida.
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
-        this.saveTasks();  // Salva as tarefas atualizadas no localStorage.
+        var res = confirm('Deseja apagar essa tarefa?')
+        if (res) {
+            // Filtra as tarefas, mantendo apenas as que não correspondem ao ID da tarefa a ser removida.
+            this.tasks = this.tasks.filter(task => task.id !== taskId);
+            this.saveTasks();  // Salva as tarefas atualizadas no localStorage.
+        }
+
+
     }
 
     // Método para editar o nome de uma tarefa existente.
@@ -68,12 +73,13 @@ $(document).ready(function () {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span class="task-name">${task.name}</span>
                     <div>
-                        <button class="btn btn-warning btn-sm editTask" data-id="${task.id}">Editar</button>
+                        <button class="btn btn-primary btn-sm editTask" data-id="${task.id}">Editar</button>
                         <button class="btn btn-danger btn-sm removeTask" data-id="${task.id}">Remover</button>
                     </div>
                 </li>
             `);
         });
+
     }
 
     // Ao clicar no botão "Adicionar Tarefa".
