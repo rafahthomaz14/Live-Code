@@ -1,0 +1,34 @@
+.taskList {
+    overflow: hidden;
+
+}
+
+.taskList span {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 70%;
+    text-overflow: ellipsis;
+}
+
+.modalComponet {
+    background-color: rgba(128, 128, 128, 0.315);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: calc(100% - 10px);
+    max-height: calc(100% - 10px);
+    z-index: 1;
+}
+
+.modalinterno {
+    background-color: white;
+    border-radius: 5px;
+}
+
+#groupList .taskList {
+    max-height: 200px;
+    overflow: auto;
+}
