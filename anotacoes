@@ -1,0 +1,45 @@
+<!-- criar pagina padrao -->
+<!-- coloca links necessários (boostrap e jquery)-->
+<!-- criar arquivos js e css (internos)-->
+<!-- container principal da página -->
+<!-- titulo principal da página-->
+<!-- formulário -->
+<!-- input que ira receber informações  -->
+<!-- ul (lista que será criada dinamicamente) -->
+
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+
+
+
+
+
+
+// Classe Task representa uma tarefa com um identificador único e um nome.
+
+// Classe TaskManager é responsável por gerenciar as tarefas.
+
+// Método para carregar as tarefas armazenadas no localStorage.
+
+// Método para salvar as tarefas no localStorage.
+
+// Método para adicionar uma nova tarefa.
+
+// Método para remover uma tarefa pelo ID.
+
+// Método para editar o nome de uma tarefa existente.
+
+// Método para obter todas as tarefas.
+
+// Quando o documento estiver pronto (carregado), execute a função a seguir.
+
+// Função para renderizar as tarefas na lista.
+
+// Ao clicar no botão "Adicionar Tarefa".
+
+// Ao clicar no botão "Remover" de uma tarefa.
+
+// Ao clicar no botão "Editar" de uma tarefa.
+
+// Renderiza as tarefas na inicialização da página.

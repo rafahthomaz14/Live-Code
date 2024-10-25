@@ -1,34 +1,112 @@
-.taskList {
-    overflow: hidden;
-
+body{
+    /* define a cor de fundo */
+    background-color: #07015F;
+    /* alinhamento centralizado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* altura total */
+    height: 100vh;
+    /* font das letras Geral*/
+    font: bold 15pt Arial;
 }
 
-.taskList span {
-    white-space: nowrap;
+section{
+    /* cor do card */
+    background-color: #BDD9FF;
+    /* arredondamento da borda */
+    border-radius: 10px;
+    /* espaco interno */
+    padding: 15px;
+    /* lagura max pre-fixada */
+    width: 800px;
+    /* sobra do card */
+    box-shadow: 5px 5px 12px rgb(7, 143, 255);
+    /* altura max */
+    height: 600px;
+    /* impede de ultrapassar a altura */
     overflow: hidden;
-    max-width: 70%;
+    /* permitir rolagem das tarefas dentro do card */
+    /* overflow: auto; */
+}
+
+h1{
+    /* cor do texto */
+    color: #020023;
+    font-family: 'Franklin Gothic Medium';
+}
+
+/* area da lista com altura maxima e scroll */
+#taskList{
+    /* altura maxima pré-definida */
+    max-height: 300px;
+    /* scroll automático para quando exceder a altura maxima pré-definida */
+    overflow-y: auto;
+    /* espaco a direita para o conteudo nao ficar encoberto pela barra de scroll */
+    padding-right: 10px;
+}
+
+/* melhorar a responsividade da página */
+@media(max-width: 600px){
+    section{
+        /* largura proporcional a tela */
+        width: 90%;
+        /* aumenta o padding para telas menores */
+        padding: 20px;
+    }
+}
+
+.task-name{
+    /* tamanho maximo do texto */
+    width: 70%;
+    /* caso ultrapasse tamanho maximo do texto, ficará escondido */
+    overflow: hidden;
+    /* colocar os três pontinhos(...) no final */
     text-overflow: ellipsis;
 }
 
-.modalComponet {
-    background-color: rgba(128, 128, 128, 0.315);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    max-width: calc(100% - 10px);
-    max-height: calc(100% - 10px);
-    z-index: 1;
+span{
+    /* nao deixa o texto quebrar para a linha de baixo */
+    text-wrap: nowrap;
 }
 
-.modalinterno {
-    background-color: white;
-    border-radius: 5px;
+/* quebra o texto para mostrar mais detalhes ao passar o mouse por cima */
+span:hover{
+    text-wrap: wrap;
 }
 
-#groupList .taskList {
-    max-height: 200px;
-    overflow: auto;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* taanho maximo do taxto */
+    /* se ultrapassar irá ficar escondido */
+    /* colocar os tres pontinhos(...) para indicar que há mais texto */
+    /* não deixa o texto quebrar  */
+/* para ver a informaçaõ completa do texto */
+.task-name:hover{
+    text-wrap: normal;
 }

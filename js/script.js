@@ -1,114 +1,119 @@
+// Classe Task representa uma tarefa com um identificador único e um nome.
+class Task {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+// Classe TaskManager é responsável por gerenciar as tarefas.
+class TaskManager {
+  constructor() {
+    this.tasks = this.loadTasks(); // metoda que carrega as tarefas.
+  }
+
+  // Método para carregar as tarefas armazenadas no localStorage.
+  loadTasks() {
+    const tasks = localStorage.getItem("tasks"); // obter as tarefas armazenadas no localStorage.
+    return tasks ? JSON.parse(tasks) : []; // se existir tarefas, converte de json para objeto. Se não retorna um array vazio.
+  }
+
+  // Método para salvar as tarefas no localStorage.
+  saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks)); // converte as tarefas em json para armazenar no localStorage
+  }
+
+  // Método para adicionar uma nova tarefa.
+  addTask(taskName) {
+    const newTask = new Task(Date.now(), taskName);
+    this.tasks.push(newTask); // adicionar uma nova tarefa ao array de tarefas
+    this.saveTasks(); // salva as tarefas atualizadas no localStorage.
+  }
+
+  // Método para remover uma tarefa pelo ID.
+  removeTask(taskId) {
+    // pergunta de cofirmação antes de apagar tarefa.
+    var res = confirm("Deseja realmente Apagar Tarefa?");
+    // faz um filtro mantendo apenas as que nao corresponde ao id selecionado
+    if (res) {
+      this.tasks = this.tasks.filter((task) => task.id !== taskId);
+      this.saveTasks(); // salva as tarefas atualizadas no localStorage.
+    }
+  }
+
+  // Método para editar o nome de uma tarefa existente.
+  editTask(taskId, newTaskName) {
+    // Encontrar tarefa correspondente ao ID fornecido.
+    const task = this.tasks.find((task) => task.id == taskId);
+    if (task) {
+      task.name = newTaskName;
+      this.saveTasks(); // salva as tarefas atualizadas no localStorage.
+    }
+  }
+
+  // Método para obter todas as tarefas.
+  getTasks() {
+    return this.tasks;
+  }
+}
+
+// Quando o documento estiver pronto (carregado), execute a função a seguir.
 $(document).ready(function () {
-  const confirmClass = new ConfirmClass();
+  // criar uma nova instância do gerenciado de páginas
   const taskManager = new TaskManager();
-  const modalComponet = new ModalComponet();
 
-  $(".modalComponet, .fecharModal").on("click", function () {
-    $(this).addClass("d-none");
-  });
+  // Função para renderizar as tarefas na lista.
+  function renderTasks() {
+    // limpa a lista de tarefas existes para poder construir uma nova.
+    $("#taskList").empty();
+    // adicionar uma lista de tarefas, incluido os botões de editar e apagar
+    taskManager.getTasks().forEach((task) => {
+      $("#taskList").append(`
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span id="task-name${task.id}" class="task-name">${task.name}</span>
 
-  function renderGroups() {
-    $("#groupList").empty();
-    taskManager.getGroups().forEach((group) => {
-      $("#groupList").append(`
-        <div class="group col-12 col-xl-6 mt-2 p-1 ">
-            <div class="border rounded p-1">
-
-                <div class="ficarFixo position-sticky t-0">
-                    <h4 class="text-center">${group.name}</h4>
-
-                    <input type="text" class="taskInput taskInput${group.id}  form-control bg-light" placeholder="Nova tarefa...">
-                </div>
-
-                
-                <div class="modal-footer">
-                    <button class="btn btn-primary addTask" data-groupid="${group.id}">Adicionar Tarefa</button>
-                </div>
-                
-                <ul class="taskList" id="taskList-${group.id}"></ul>
-                
-                <div class="modal-footer position-sticky b-0">
-                    <button class="btn btn-warning editarGroup text-white" data-groupid="${group.id}">Editar</button>
-                    <button class="btn btn-danger removeGroup" data-groupid="${group.id}">Remover Grupo</button>
-                </div>
-
-            </div>
-        </div>`);
-
-      group.tasks.forEach((task) => {
-        $(`#taskList-${group.id}`).append(`
-            <li class="mt-2 rounded list-group-item d-flex justify-content-between align-items-center">
-                <span class="task-name${task.id}">${task.name}</span>
                 <div>
-                    <button class="btn btn-warning btn-sm editTask" data-groupid="${group.id}" data-id="${task.id}"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-danger btn-sm removeTask" data-groupid="${group.id}" data-id="${task.id}"><i class="bi bi-trash"></i></button>
-                    <button class="btn btn-danger btn-sm infoTask" data-groupid="${group.id}" data-id="${task.id}"><i class="bi bi-info-circle"></i></button>
+                    <button class="btn btn-primary btn-sm editTask" data-id="${task.id}">Editar</button>
+                    <button class="btn btn-danger btn-sm removeTask" data-id="${task.id}">Remover</button>
                 </div>
-            </li>
+            </li>    
         `);
-      });
     });
   }
 
-  $("#addGroup").click(function () {
-    const groupName = $("#groupInput").val().trim();
-    if (groupName) {
-      taskManager.addGroup(groupName);
-      $("#groupInput").val("");
-      renderGroups();
-    }
-  });
-
-  $("#groupList").on("click", ".addTask", function () {
-    const groupId = Number($(this).data("groupid"));
-    const taskName = $(`#groupList .taskInput${groupId}`).val().trim();
+  // Ao clicar no botão "Adicionar Tarefa".
+  $("#addTask").click(() => {
+    const taskName = $("#taskInput").val().trim(); // obtem o nome da tarefa digitada e remove os espaços.
+    //verificar se o nome da tarefa não esta vazio
     if (taskName) {
-      taskManager.addTaskToGroup(groupId, taskName);
-      $(this).siblings(".taskInput").val("");
-      renderGroups();
+      taskManager.addTask(taskName);
+      // limpar o campo input(entrada) apos salvar
+      $("#taskInput").val("");
+      renderTasks(); // atualiza lista rendenrizada.
     }
   });
 
-  $("#groupList").on("click", ".removeTask", function () {
-    const groupId = Number($(this).data("groupid"));
-    const taskId = Number($(this).data("id"));
-    taskManager.removeTaskFromGroup(groupId, taskId);
-    renderGroups();
+  // Ao clicar no botão "Remover" de uma tarefa.
+  $("#taskList").on("click", ".removeTask", function () {
+    const taskId = Number($(this).data("id")); // tranforma em número e obtem o id do botão que foi clicada.
+    taskManager.removeTask(taskId);
+    renderTasks(); // atualiza lista rendenrizada.
   });
 
-  $("#groupList").on("click", ".infoTask", function () {
-    const groupId = Number($(this).data("groupid"));
-    const taskId = Number($(this).data("id"));
-    const taskName = $(`#taskList-${groupId} .task-name${taskId}`).text();
-    taskManager.getGroupsId(groupId, taskName, groupId);
-  });
-
-  $("#groupList").on("click", ".editTask", function () {
-    const groupId = Number($(this).data("groupid"));
-    const taskId = Number($(this).data("id"));
-    const taskName = $(`#taskList-${groupId} .task-name${taskId}`).text();
-    const newTaskName = prompt("Editar Tarefa", taskName);
+  // Ao clicar no botão "Editar" de uma tarefa.
+  $("#taskList").on("click", ".editTask", function () {
+    //teste de botão
+    const taskId = Number($(this).data("id")); // obtem o id do botao(editar) que foi clicado.
+    // obter nome da tarefa para edita-la
+    const taskName = $(`#task-name${taskId}`).text();
+    //prompt para trocar nome
+    const newTaskName = prompt("Editar tarefa", taskName);
     if (newTaskName) {
-      taskManager.editTaskInGroup(groupId, taskId, newTaskName);
-      renderGroups();
+      taskManager.editTask(taskId, newTaskName); // envia o id da tarefa a ser editada e o novo nome da tarefa.
+      renderTasks(); // atualiza lista rendenrizada.
     }
   });
 
-  $("#groupList").on("click", ".removeGroup", function () {
-    if (confirmClass.confirmBox("Deseja apagar Grupo?")) {
-      const groupId = Number($(this).data("groupid"));
-
-      var children = taskManager.groups.find((group) => group.id == groupId);
-
-      if (children.tasks.length > 0) {
-        modalComponet.modal("Existe tarefas vinculadas, Grupo nao pode ser apagado!", "Aviso");
-      } else {
-        taskManager.groups = taskManager.groups.filter((group) => group.id !== groupId);
-        taskManager.saveGroups();
-        renderGroups();
-      }
-    }
-  });
-
-  renderGroups();
+  // Renderiza as tarefas na inicialização da página.
+  return renderTasks();
 });
